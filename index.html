@@ -16,15 +16,17 @@
 
 <p>My cat is very grumpy.</p>
 
-<svg width="100%" height="5000">
-  <circle class="target" style="fill: #69b3a2" stroke="black" cx=50 cy=50 r=40></circle>
-  <ellipse style="fill: #69b3a2" cx="1000" cy="500" rx="1000" ry="500"></ellipse>
-</svg>
+<!-- Add an svg area, empty -->
+<svg id="dataviz_area" height=200 width=450></svg>
 
 <script>
-d3
-  .select(".target")  // select the elements that have the class 'target'
-  .style("stroke-width", 8) // change their style: stroke width is not equal to 8 pixels
+var svg = d3.select("#dataviz_area")
+svg.append("circle")
+  .attr("cx", 2).attr("cy", 2).attr("r", 40).style("fill", "blue");
+svg.append("circle")
+  .attr("cx", 140).attr("cy", 70).attr("r", 40).style("fill", "red");
+svg.append("circle")
+  .attr("cx", 300).attr("cy", 100).attr("r", 40).style("fill", "green");
 </script>
 
 </body>
