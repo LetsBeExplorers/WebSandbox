@@ -2,6 +2,10 @@
 <html>
 <body>
 
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- auto refresh every 60 seconds -->
 <meta http-equiv="refresh" content="60" />
 
 <style>
@@ -13,9 +17,15 @@
 <p>My cat is very grumpy.</p>
 
 <svg width="100%" height="5000">
-  <circle style="fill: #69b3a2" stroke="black" cx=50 cy=50 r=40></circle>
+  <circle class="target" style="fill: #69b3a2" stroke="black" cx=50 cy=50 r=40></circle>
   <ellipse style="fill: #69b3a2" cx="1000" cy="500" rx="1000" ry="500"></ellipse>
 </svg>
+
+<script>
+d3
+  .select(".target")  // select the elements that have the class 'target'
+  .style("stroke-width", 8) // change their style: stroke width is not equal to 8 pixels
+</script>
 
 </body>
 </html>
