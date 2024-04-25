@@ -27,7 +27,6 @@
 
 var data;
 
-
 // the rest of the HTML document needs to be loaded before running this,
 // else place the data at the top of the file instead of the bottom
 window.addEventListener("load", function(){
@@ -47,29 +46,29 @@ window.addEventListener("load", function(){
 
 function updateList(name) {
 	const orderedList = document.createElement("ol");
-		document.body.append(orderedList)
+	document.body.append(orderedList)
 
-	    for(const item of data) {
-	    	const listItem = document.createElement("li");
-	    	orderedList.append(listItem);
+	for(const item of data) {
+	  const listItem = document.createElement("li");
+	  orderedList.append(listItem);
 
-	    	const unorderedList = document.createElement("ul");
-	    	listItem.append(unorderedList);
-	    	listItem.append(document.createElement("br"));
+	  const unorderedList = document.createElement("ul");
+	  listItem.append(unorderedList);
+	  listItem.append(document.createElement("br"));
 
-	    	for(const key in item) {
-	    		if (key == name) {
-		    		const value = JSON.stringify(item[key]);
+	  for(const key in item) {
+	    if (key == name) {
+		    const value = JSON.stringify(item[key]);
 
-		    		const propertyItem = document.createElement("li");
-		    		unorderedList.append(propertyItem);
-		    		propertyItem.innerHTML = `<b>${key}:</b> ${value}`;
-		    	}
-	    	}
-	    }
+		    const propertyItem = document.createElement("li");
+		    unorderedList.append(propertyItem);
+		    propertyItem.innerHTML = `<b>${key}:</b> ${value}`;
+		  }
+	  }
+	}
 
-		// here's what you need
-		console.dir(data);
+	// here's what you need
+	console.dir(data);
 }
 
 // alternatively, instead of anonymous function:
