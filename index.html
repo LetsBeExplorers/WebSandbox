@@ -13,16 +13,20 @@
 
 <h1 class="inGreen">My First D3 Graph</h1>
 
-<p>My cat is very grumpy... about this graph</p>
+<p>My nonexistent cat is very grumpy... about this nonexistent graph</p>
 
 <!-- Add 2 buttons -->
-<button onclick="update(data1)">Dataset 1</button>
-<button onclick="update(data2)">Dataset 2</button>
+<button onclick="updateList('num1')">Dataset 1</button>
+<button onclick="updateList('num2')">Dataset 2</button>
+<button onclick="updateList('num3')">Dataset 3</button>
 
 <!-- Create a div where the graph will take place -->
 <div id="dataviz"></div>
 
 <script>
+
+var data;
+
 
 // the rest of the HTML document needs to be loaded before running this,
 // else place the data at the top of the file instead of the bottom
@@ -36,38 +40,37 @@ window.addEventListener("load", function(){
 	const csv = csvScriptTag.innerText.trim();
 
 	// d3.csv is a file fetch wrapper around this function anyway 
-	const data = d3.csvParse(csv);
+	data = d3.csvParse(csv);
 
-/*	d3.select("#dataviz").selectAll("p")
-		.data(data)
-    	.join("p")
-        	.attr("class", "dataviz")
-        	.text((d) => d.num1)
-*/
-	const orderedList = document.createElement("ol");
-	document.body.append(orderedList)
-
-    for(const item of data) {
-    	const listItem = document.createElement("li");
-    	orderedList.append(listItem);
-
-    	const unorderedList = document.createElement("ul");
-    	listItem.append(unorderedList);
-    	listItem.append(document.createElement("br"));
-
-    	for(const key in item) {
-    		const value = JSON.stringify(item[key]);
-
-    		const propertyItem = document.createElement("li");
-    		unorderedList.append(propertyItem);
-    		propertyItem.innerHTML = `<b>${key}:</b> ${value}`;
-    	}
-    }
-
-	// here's what you need
-	console.dir(data);
 });
 // end anonymous function and call to addEventListener
+
+function updateList(name) {
+	const orderedList = document.createElement("ol");
+		document.body.append(orderedList)
+
+	    for(const item of data) {
+	    	const listItem = document.createElement("li");
+	    	orderedList.append(listItem);
+
+	    	const unorderedList = document.createElement("ul");
+	    	listItem.append(unorderedList);
+	    	listItem.append(document.createElement("br"));
+
+	    	for(const key in item) {
+	    		if (key == name) {
+		    		const value = JSON.stringify(item[key]);
+
+		    		const propertyItem = document.createElement("li");
+		    		unorderedList.append(propertyItem);
+		    		propertyItem.innerHTML = `<b>${key}:</b> ${value}`;
+		    	}
+	    	}
+	    }
+
+		// here's what you need
+		console.dir(data);
+}
 
 // alternatively, instead of anonymous function:
 window.addEventListener("load", function(){return;});
@@ -87,7 +90,7 @@ window.addEventListener("load", aThirdFn);
 </script>
 
 <script id="csv" type="text/csv" src="./test.csv">
-num1, num2, num3
+num1,num2,num3
 61,30,49
 38,19,38
 24,30,50
