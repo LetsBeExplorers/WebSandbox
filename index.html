@@ -8,7 +8,7 @@
 <meta http-equiv="refresh" content="60" charset="utf-8"/>
 
 <style>
-  .inGreen { color: green; }
+	.inGreen { color: green; }
 </style>
 
 <h1 class="inGreen">My First D3 Graph</h1>
@@ -16,9 +16,9 @@
 <p>My nonexistent cat is very grumpy... about this nonexistent graph</p>
 
 <!-- Add 3 buttons -->
-<button onclick="updateList('num1')">Dataset 1</button>
-<button onclick="updateList('num2')">Dataset 2</button>
-<button onclick="updateList('num3')">Dataset 3</button>
+<button class="set data" data-name="num1">Dataset 1</button>
+<button class="set data" data-name="num2">Dataset 2</button>
+<button class="set data" data-name="num3">Dataset 3</button>
 
 <script>
 
@@ -38,51 +38,48 @@ window.addEventListener("load", function(){
 	// d3.csv is a file fetch wrapper around this function anyway 
 	data = d3.csvParse(csv);
 
+	for(const button of document.querySelectorAll("button.set.data")) {
+		const name = button.dataset.name;
+		button.addEventListener("click", updateList.bind(null, name));
+	}
 });
 
 function updateList(name) {
-	
 	// remove the old list to replace with new one
-	var element = document.getElementById("list");
-	if (element === null) {
-	} else {
-		removeElement(element)
+	var list = document.getElementById("list");
+	if (list) {
+		list.remove();
 	}
 
+	list = buildList();
+
 	const orderedList = document.createElement("ol");
-	addListElement(orderedList)
+	list.append(orderedList);
 
-	for(const item of data) {
-	  const listItem = document.createElement("li");
-	  orderedList.append(listItem);
+	const pluck = function(name) {
+		return function(item) {
+			return item[name];
+		}
+	};
 
-	  const unorderedList = document.createElement("ul");
-	  listItem.append(unorderedList);
-	  listItem.append(document.createElement("br"));
+	const values = data
+		.map(pluck(name))
+		.map(x=>Number.parseInt(x))
+		.map(JSON.stringify);
 
-	  for(const key in item) {
-	    if (key == name) {
-		    const value = JSON.stringify(item[key]);
-
-		    const propertyItem = document.createElement("li");
-		    unorderedList.append(propertyItem);
-		    propertyItem.innerHTML = `<b>${key}:</b> ${value}`;
-		  }
-	  }
+	for(const value of values) {
+		const listItem = document.createElement("li");
+		orderedList.append(listItem);
+		listItem.innerText = value;
 	}
 }
 
 // adds a new div to the page with supplied content
-function addListElement(content) {
-  const newDiv = document.createElement("div");
-  newDiv.setAttribute("id", "list")
-  newDiv.appendChild(content);
-  document.body.append(newDiv);
-}
-
-// removes an existing element
-function removeElement(element) {
-	element.remove();
+function buildList() {
+	const newDiv = document.createElement("div");
+	newDiv.setAttribute("id", "list")
+	document.body.append(newDiv);
+	return newDiv;
 }
 
 </script>
@@ -107,7 +104,7 @@ num1,num2,num3
 44,58,56
 37,18,23
 43,32,56
-49,23,36
+49,23x,36
 45,51,60
 18,34,20
 26,51,23
