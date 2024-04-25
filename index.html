@@ -43,7 +43,7 @@ window.addEventListener("load", function(){
 
 function updateList(name) {
 	const orderedList = document.createElement("ol");
-	addElement(orderedList)
+	addListElement(orderedList)
 
 	for(const item of data) {
 	  const listItem = document.createElement("li");
@@ -66,7 +66,7 @@ function updateList(name) {
 }
 
 // adds a new div to the page with supplied content
-function addElement(content) {
+function addListElement(content) {
   const newDiv = document.createElement("div");
   newDiv.setAttribute("id", "list")
   newDiv.appendChild(content);
