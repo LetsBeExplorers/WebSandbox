@@ -39,9 +39,16 @@ window.addEventListener("load", function(){
 	data = d3.csvParse(csv);
 
 });
-// end anonymous function and call to addEventListener
 
 function updateList(name) {
+	
+	// remove the old list to replace with new one
+	var element = document.getElementById("list");
+	if (element === null) {
+	} else {
+		removeElement(element)
+	}
+
 	const orderedList = document.createElement("ol");
 	addListElement(orderedList)
 
@@ -71,6 +78,11 @@ function addListElement(content) {
   newDiv.setAttribute("id", "list")
   newDiv.appendChild(content);
   document.body.append(newDiv);
+}
+
+// removes an existing element
+function removeElement(element) {
+	element.remove();
 }
 
 </script>
