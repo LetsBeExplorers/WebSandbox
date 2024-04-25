@@ -20,9 +20,6 @@
 <button onclick="updateList('num2')">Dataset 2</button>
 <button onclick="updateList('num3')">Dataset 3</button>
 
-<!-- Create a div where the graph will take place -->
-<div id="dataviz"></div>
-
 <script>
 
 var data;
@@ -46,7 +43,7 @@ window.addEventListener("load", function(){
 
 function updateList(name) {
 	const orderedList = document.createElement("ol");
-	document.body.append(orderedList)
+	addElement(orderedList)
 
 	for(const item of data) {
 	  const listItem = document.createElement("li");
@@ -66,9 +63,14 @@ function updateList(name) {
 		  }
 	  }
 	}
+}
 
-	// here's what you need
-	console.dir(data);
+// adds a new div to the page with supplied content
+function addElement(content) {
+  const newDiv = document.createElement("div");
+  newDiv.setAttribute("id", "list")
+  newDiv.appendChild(content);
+  document.body.append(newDiv);
 }
 
 </script>
